@@ -22,6 +22,7 @@ public class BookServiceImpl implements BookService {
                 .genre(Genre.HISTORICAL)
                 .releaseYear(2022)
                 .isbn("978-1-234567-89-0")
+                .isAcitve(true)
                 .build();
 
         Book book2 = Book.builder()
@@ -31,6 +32,7 @@ public class BookServiceImpl implements BookService {
                 .genre(Genre.Horror)
                 .releaseYear(2019)
                 .isbn("978-2-345678-90-1")
+                .isAcitve(true)
                 .build();
 
         Book book3 = Book.builder()
@@ -40,6 +42,7 @@ public class BookServiceImpl implements BookService {
                 .genre(Genre.FANTASY)
                 .releaseYear(2020)
                 .isbn("978-3-456789-01-2")
+                .isAcitve(true)
                 .build();
 
         bookMap.put(book1.getId(), book1);
@@ -62,6 +65,7 @@ public class BookServiceImpl implements BookService {
                 .genre(book.getGenre())
                 .releaseYear(book.getReleaseYear())
                 .isbn(book.getIsbn())
+                .isAcitve(true)
                 .build();
 
         bookMap.put(saveBook.getId(), saveBook);
@@ -77,7 +81,7 @@ public class BookServiceImpl implements BookService {
     @Override
     public Optional<Book> updateBook(UUID id, Book book) {
         Book existbook = bookMap.get(id);
-        if(existbook!=null){
+        if(existbook!=null&&existbook.isAcitve()==true){
             existbook.setTitle(book.getTitle());
             existbook.setAuthor(book.getAuthor());
             existbook.setGenre(book.getGenre());
@@ -85,6 +89,7 @@ public class BookServiceImpl implements BookService {
             existbook.setIsbn(book.getIsbn());
             return Optional.of(existbook);
         }
+
         return Optional.empty();
     }
 
@@ -92,7 +97,9 @@ public class BookServiceImpl implements BookService {
     public Book deleteByIdOrISBN(UUID id, String isbn) {
 
         if (bookMap.containsKey(id)) {
-            return bookMap.remove(id);
+            Book book = bookMap.get(id);
+            book.setAcitve(false);
+            return book;
         }
 
         if (isbn != null) {

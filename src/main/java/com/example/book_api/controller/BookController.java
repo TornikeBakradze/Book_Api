@@ -20,7 +20,7 @@ public class BookController {
     public static final String BOOK_PATH = "/api/book";
     public static final String BOOK_PATH_ID = BOOK_PATH + "/{bookId}";
 
-    private final BookService bookService;
+      private final BookService bookService;
 
     @PostMapping(value = BOOK_PATH)
     public ResponseEntity saveNewBook(@RequestBody @Validated Book book) {

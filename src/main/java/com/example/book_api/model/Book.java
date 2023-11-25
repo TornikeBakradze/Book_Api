@@ -19,6 +19,7 @@ public class Book {
     @NotBlank(message = "author is mandatory")
     private String author;
 
+
     @Max(value = 2023, message = "Release year must be lesser than or equal to 2023")
     private int releaseYear;
 
@@ -27,4 +28,6 @@ public class Book {
     @NotNull
     @NotBlank(message = "isbn is mandatory")
     private String isbn;
+
+    private boolean isAcitve;
 }
